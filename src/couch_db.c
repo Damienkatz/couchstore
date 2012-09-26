@@ -385,7 +385,7 @@ static couchstore_error_t bp_to_doc(Doc **pDoc, Db *db, off_t bp, couchstore_ope
     fatbuf *docbuf = NULL;
 
     if (options & DECOMPRESS_DOC_BODIES) {
-        bodylen = pread_compressed(db, bp, &docbody);
+        bodylen = pread_bin(db, bp, &docbody);
     } else {
         bodylen = pread_bin(db, bp, &docbody);
     }

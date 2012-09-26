@@ -223,7 +223,7 @@ static couchstore_error_t flush_mr_partial(couchfile_modify_result *res, size_t 
 
     writebuf.size = bufpos;
 
-    errcode = db_write_buf_compressed(res->rq->db, &writebuf, &diskpos, &disk_size);
+    errcode = db_write_buf(res->rq->db, &writebuf, &diskpos, &disk_size);
     free(nodebuf);  // here endeth the nodebuf.
     if (errcode != COUCHSTORE_SUCCESS) {
         return errcode;
@@ -318,7 +318,7 @@ static couchstore_error_t modify_node(couchfile_modify_request *rq,
     }
 
     if (nptr) {
-        if ((nodebuflen = pread_compressed(rq->db, nptr->pointer, (char **) &nodebuf)) < 0) {
+        if ((nodebuflen = pread_bin(rq->db, nptr->pointer, (char **) &nodebuf)) < 0) {
             error_pass(COUCHSTORE_ERROR_READ);
         }
     }
